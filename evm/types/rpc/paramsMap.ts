@@ -1,4 +1,4 @@
-import { EvmRpcMethod } from "./methods.ts";
+import { EvmRpcMethod } from "../../constants/methods.ts";
 import { Address, BlockTag, Hash, Hex, Quantity } from "../primitives.ts";
 import { CallObject } from "../callObject.ts";
 import { LogFilter } from "../logFilter.ts";

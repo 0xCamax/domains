@@ -1,9 +1,13 @@
+type Brand<K, T> = K & { __brand: T };
+
 export type Hex = `0x${string}`;
 export type Address = Hex & { readonly __address: unique symbol };
-export type Wei = bigint;
-export type Gas = bigint;
-export type Nonce = bigint;
-export type ChainId = bigint;
+
+export type Wei = Brand<bigint, "wei">;
+export type Gas = Brand<bigint, "gas">;
+export type Nonce = Brand<bigint, "nonce">;
+export type ChainId = Brand<bigint, "chainId">;
+
 
 export type Hash = Hex & { readonly __hash: unique symbol };
 export type Quantity = Hex; // hex-encoded bigint
@@ -79,6 +83,83 @@ export type int232 = bigint;
 export type int240 = bigint;
 export type int248 = bigint;
 export type int256 = bigint;
+
+// Log
+export interface RpcLog {
+  address: Address;
+  topics: Hash[];
+  data: Hex;
+  blockNumber: Quantity | null;
+  transactionHash: Hash | null;
+  transactionIndex: Quantity | null;
+  blockHash: Hash | null;
+  logIndex: Quantity | null;
+  removed: boolean;
+}
+
+// Transaction
+export interface RpcTransaction {
+  hash: Hash;
+  nonce: Quantity;
+  blockHash: Hash | null;
+  blockNumber: Quantity | null;
+  transactionIndex: Quantity | null;
+  from: Address;
+  to: Address | null;
+  value: Quantity;
+  gas: Quantity;
+  gasPrice?: Quantity;
+  maxFeePerGas?: Quantity;
+  maxPriorityFeePerGas?: Quantity;
+  input: Hex;
+  type?: Quantity;
+  chainId?: Quantity;
+  v: Quantity;
+  r: Hex;
+  s: Hex;
+}
+
+// Receipt
+export interface RpcTransactionReceipt {
+  transactionHash: Hash;
+  transactionIndex: Quantity;
+  blockHash: Hash;
+  blockNumber: Quantity;
+  from: Address;
+  to: Address | null;
+  cumulativeGasUsed: Quantity;
+  gasUsed: Quantity;
+  contractAddress: Address | null;
+  logs: RpcLog[];
+  logsBloom: Hex;
+  status?: Quantity;
+  root?: Hex;
+  effectiveGasPrice?: Quantity;
+}
+
+// Block
+export interface RpcBlock {
+  number: Quantity | null;
+  hash: Hash | null;
+  parentHash: Hash;
+  nonce: Hex | null;
+  sha3Uncles: Hash;
+  logsBloom: Hex | null;
+  transactionsRoot: Hash;
+  stateRoot: Hash;
+  receiptsRoot: Hash;
+  miner: Address;
+  difficulty: Quantity;
+  totalDifficulty?: Quantity;
+  extraData: Hex;
+  size: Quantity;
+  gasLimit: Quantity;
+  gasUsed: Quantity;
+  timestamp: Quantity;
+  baseFeePerGas?: Quantity;
+  transactions: (Hash | RpcTransaction)[];
+  uncles: Hash[];
+}
 
 
 // ---------- Hex ----------

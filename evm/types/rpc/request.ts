@@ -1,5 +1,5 @@
 import { RpcParamsMap } from "./paramsMap.ts";
-import { EvmRpcMethod } from "./methods.ts";
+import { EvmRpcMethod } from "../../constants/methods.ts";
 
 export interface JsonRpcRequest<M extends EvmRpcMethod> {
   readonly jsonrpc: "2.0";
