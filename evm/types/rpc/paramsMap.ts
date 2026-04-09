@@ -1,5 +1,5 @@
 import { EvmRpcMethod } from "../../constants/methods.ts";
-import { Address, BlockTag, Hash, Hex, Quantity } from "../primitives.ts";
+import { Address, BlockTag, Bundle, Hash, Hex, Quantity } from "../primitives.ts";
 import { CallObject } from "../callObject.ts";
 import { LogFilter } from "../logFilter.ts";
 
@@ -39,6 +39,10 @@ export interface RpcParamsMap {
 
   [EvmRpcMethod.eth_getTransactionReceipt]: [
     hash: Hash,
+  ];
+
+  [EvmRpcMethod.eth_callMany]: [
+    bundle: Bundle[],
   ];
 
   [EvmRpcMethod.eth_call]: [

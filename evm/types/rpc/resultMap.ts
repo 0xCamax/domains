@@ -45,6 +45,7 @@ export interface RpcResultMap {
 
   // --- Calls / execution ---
   eth_call: Hex;
+  eth_callMany: { value: Hex }[];
   eth_estimateGas: Quantity;
 
   // --- Blocks ---

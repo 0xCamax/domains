@@ -19,6 +19,7 @@ export enum EvmRpcMethod {
 
   // Calls
   eth_call = "eth_call",
+  eth_callMany = "eth_callMany",
   eth_estimateGas = "eth_estimateGas",
 
   // Logs

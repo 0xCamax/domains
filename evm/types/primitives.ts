@@ -1,3 +1,5 @@
+import { CallObject } from "./callObject.ts";
+
 type Brand<K, T> = K & { __brand: T };
 
 export type Hex = `0x${string}`;
@@ -8,25 +10,24 @@ export type Gas = Brand<bigint, "gas">;
 export type Nonce = Brand<bigint, "nonce">;
 export type ChainId = Brand<bigint, "chainId">;
 
-
 export type Hash = Hex & { readonly __hash: unique symbol };
 export type Quantity = Hex; // hex-encoded bigint
 export type BlockTag = "latest" | "pending" | "earliest" | Hex;
 // Safe in JS number
-export type uint8   = bigint;
-export type uint16  = bigint;
-export type uint24  = bigint;
-export type uint32  = bigint;
-export type uint40  = bigint;
-export type uint48  = bigint;
+export type uint8 = bigint;
+export type uint16 = bigint;
+export type uint24 = bigint;
+export type uint32 = bigint;
+export type uint40 = bigint;
+export type uint48 = bigint;
 
 // Must be bigint
-export type uint56  = bigint;
-export type uint64  = bigint;
-export type uint72  = bigint;
-export type uint80  = bigint;
-export type uint88  = bigint;
-export type uint96  = bigint;
+export type uint56 = bigint;
+export type uint64 = bigint;
+export type uint72 = bigint;
+export type uint80 = bigint;
+export type uint88 = bigint;
+export type uint96 = bigint;
 export type uint104 = bigint;
 export type uint112 = bigint;
 export type uint120 = bigint;
@@ -49,20 +50,20 @@ export type uint248 = bigint;
 export type uint256 = bigint;
 
 // Safe in JS number
-export type int8   = bigint;
-export type int16  = bigint;
-export type int24  = bigint;
-export type int32  = bigint;
-export type int40  = bigint;
-export type int48  = bigint;
+export type int8 = bigint;
+export type int16 = bigint;
+export type int24 = bigint;
+export type int32 = bigint;
+export type int40 = bigint;
+export type int48 = bigint;
 
 // Must be bigint
-export type int56  = bigint;
-export type int64  = bigint;
-export type int72  = bigint;
-export type int80  = bigint;
-export type int88  = bigint;
-export type int96  = bigint;
+export type int56 = bigint;
+export type int64 = bigint;
+export type int72 = bigint;
+export type int80 = bigint;
+export type int88 = bigint;
+export type int96 = bigint;
 export type int104 = bigint;
 export type int112 = bigint;
 export type int120 = bigint;
@@ -161,6 +162,32 @@ export interface RpcBlock {
   uncles: Hash[];
 }
 
+export type BlockOverride = {
+  blockhash?: Hex;
+  coinbase?: Hex;
+  timestamp?: Hex;
+  difficulty?: Hex;
+  gasLimit?: Hex;
+  baseFee?: Hex;
+};
+
+export type BlockNumber = {
+  blockNumber?: Hex;
+  blockTag?: BlockTag;
+  blockHash?: Hex;
+};
+
+export type SimulationContext = {
+  blockNumber: BlockNumber;
+  transactionIndex: number;
+};
+
+export type Bundle = {
+  tx: CallObject;
+  context: SimulationContext;
+  blockOverride?: BlockOverride;
+  timeout?: number;
+};
 
 // ---------- Hex ----------
 
