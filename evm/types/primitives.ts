@@ -1,5 +1,3 @@
-import { CallObject } from "./callObject.ts";
-
 type Brand<K, T> = K & { __brand: T };
 
 export type Hex = `0x${string}`;
@@ -12,7 +10,6 @@ export type ChainId = Brand<bigint, "chainId">;
 
 export type Hash = Hex & { readonly __hash: unique symbol };
 export type Quantity = Hex; // hex-encoded bigint
-export type BlockTag = "latest" | "pending" | "earliest" | Hex;
 // Safe in JS number
 export type uint8 = bigint;
 export type uint16 = bigint;
@@ -162,8 +159,42 @@ export interface RpcBlock {
   uncles: Hash[];
 }
 
+
+export type BlockTag =
+  | "latest"
+  | "earliest"
+  | "pending"
+  | "safe"
+  | "finalized";
+
+export type BlockNumber = Hex | BlockTag;
+
+export type SimulationContext = {
+  blockNumber: BlockNumber;
+  transactionIndex: number;
+};
+
+export type TransactionCall = {
+  from?: Hex;
+  to?: Hex | null;
+
+  gas?: Hex;
+  value?: Hex;
+
+  input?: Hex;
+
+  gasPrice?: Hex;
+
+  maxFeePerGas?: Hex;
+  maxPriorityFeePerGas?: Hex;
+
+  nonce?: Hex;
+  type?: Hex;
+};
+
 export type BlockOverride = {
-  blockhash?: Hex;
+  blockNumber?: BlockNumber;
+  blockHash?: Hex;
   coinbase?: Hex;
   timestamp?: Hex;
   difficulty?: Hex;
@@ -171,24 +202,23 @@ export type BlockOverride = {
   baseFee?: Hex;
 };
 
-export type BlockNumber = {
-  blockNumber?: Hex;
-  blockTag?: BlockTag;
-  blockHash?: Hex;
-};
-
-export type SimulationContext = {
-  blockNumber: BlockNumber;
-  transactionIndex: number;
-};
-
 export type Bundle = {
-  tx: CallObject;
-  context: SimulationContext;
+  transactions: TransactionCall[];
+
   blockOverride?: BlockOverride;
-  timeout?: number;
 };
 
+export type StateOverride = Record<
+  Hex,
+  {
+    balance?: Hex;
+    nonce?: Hex;
+    code?: Hex;
+
+    state?: Record<Hex, Hex>;
+    stateDiff?: Record<Hex, Hex>;
+  }
+>;
 // ---------- Hex ----------
 
 export function isHex(value: string): value is Hex {

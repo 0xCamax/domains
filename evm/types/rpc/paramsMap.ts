@@ -1,6 +1,5 @@
 import { EvmRpcMethod } from "../../constants/methods.ts";
-import { Address, BlockTag, Bundle, Hash, Hex, Quantity } from "../primitives.ts";
-import { CallObject } from "../callObject.ts";
+import { Address, BlockTag, Bundle, Hash, Hex, Quantity, TransactionCall, SimulationContext, StateOverride } from "../primitives.ts";
 import { LogFilter } from "../logFilter.ts";
 
 export interface RpcParamsMap {
@@ -42,16 +41,19 @@ export interface RpcParamsMap {
   ];
 
   [EvmRpcMethod.eth_callMany]: [
-    bundle: Bundle[],
+    Bundle[],
+    SimulationContext,
+    StateOverride?,
+    number?
   ];
 
   [EvmRpcMethod.eth_call]: [
-    tx: CallObject,
+    tx: TransactionCall,
     block: BlockTag,
   ];
 
   [EvmRpcMethod.eth_estimateGas]: [
-    tx: CallObject,
+    tx: TransactionCall,
     block?: BlockTag,
   ];
 

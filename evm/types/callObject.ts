@@ -1,4 +1,4 @@
-import { Address, Hex, Quantity } from "./primitives.ts";
+import { Quantity, TransactionCall } from "./primitives.ts";
 import {
   AccessList,
   AuthorizationList,
@@ -6,16 +6,7 @@ import {
 } from "./transaction.ts";
 import { RpcInvalidTransactionError } from "../constants/errors.ts";
 
-export interface CallObject {
-  from?: Address;
-  to?: Address;
-  gas?: Quantity;
-  gasPrice?: Quantity;
-  value?: Quantity;
-  data?: Hex;
-  nonce?: Quantity;
-  maxFeePerGas?: Quantity;
-  maxPriorityFeePerGas?: Quantity;
+export interface CallObject extends TransactionCall {
   chainId?: Quantity;
 
   accessList?: AccessList;
