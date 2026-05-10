@@ -1,14 +1,14 @@
 type Brand<K, T> = K & { __brand: T };
 
-export type Hex = `0x${string}`;
-export type Address = Hex & { readonly __address: unique symbol };
+export type Hex = string;
+export type Address = Hex;
 
 export type Wei = Brand<bigint, "wei">;
 export type Gas = Brand<bigint, "gas">;
 export type Nonce = Brand<bigint, "nonce">;
 export type ChainId = Brand<bigint, "chainId">;
 
-export type Hash = Hex & { readonly __hash: unique symbol };
+export type Hash = Hex;
 export type Quantity = Hex; // hex-encoded bigint
 // Safe in JS number
 export type uint8 = bigint;

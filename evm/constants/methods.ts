@@ -2,6 +2,8 @@ export enum EvmRpcMethod {
   // Chain
   eth_chainId = "eth_chainId",
   eth_blockNumber = "eth_blockNumber",
+  eth_gasPrice = "eth_gasPrice",
+  eth_feeHistory = "eth_feeHistory",
 
   // Accounts
   eth_accounts = "eth_accounts",
@@ -28,4 +30,6 @@ export enum EvmRpcMethod {
   // State
   eth_getCode = "eth_getCode",
   eth_getStorageAt = "eth_getStorageAt",
+
+  eth_sendPrivateRawTransaction = "eth_sendPrivateRawTransaction"
 }

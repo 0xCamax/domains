@@ -59,6 +59,7 @@ export interface RpcResultMap {
   eth_getTransactionByBlockHashAndIndex: RpcTransaction | null;
   eth_getTransactionByBlockNumberAndIndex: RpcTransaction | null;
   eth_sendRawTransaction: Hash;
+  eth_sendPrivateRawTransaction: Hash;
   eth_sendTransaction: Hash;
   eth_getTransactionReceipt: RpcTransactionReceipt | null;
 

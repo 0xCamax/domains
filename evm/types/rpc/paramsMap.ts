@@ -1,12 +1,35 @@
 import { EvmRpcMethod } from "../../constants/methods.ts";
-import { Address, BlockTag, Bundle, Hash, Hex, Quantity, TransactionCall, SimulationContext, StateOverride } from "../primitives.ts";
+import {
+  Address,
+  BlockNumber,
+  BlockTag,
+  Bundle,
+  Hash,
+  Hex,
+  Quantity,
+  SimulationContext,
+  StateOverride,
+  TransactionCall,
+} from "../primitives.ts";
 import { LogFilter } from "../logFilter.ts";
 
 export interface RpcParamsMap {
   [EvmRpcMethod.eth_chainId]: [];
   [EvmRpcMethod.eth_blockNumber]: [];
+  [EvmRpcMethod.eth_sendPrivateRawTransaction]: [
+    rawTx: Hex,
+    preferences: {
+      fast: boolean
+    }
+  ];
+  
 
   [EvmRpcMethod.eth_accounts]: [];
+  [EvmRpcMethod.eth_feeHistory]: [
+    blockCount: number,
+    block: BlockNumber,
+    percentiles: number[],
+  ];
 
   [EvmRpcMethod.eth_getBalance]: [
     Address: Address,
@@ -17,6 +40,8 @@ export interface RpcParamsMap {
     Address: Address,
     block: BlockTag,
   ];
+
+  [EvmRpcMethod.eth_gasPrice]: [];
 
   [EvmRpcMethod.eth_getBlockByNumber]: [
     block: BlockTag,
@@ -44,7 +69,7 @@ export interface RpcParamsMap {
     Bundle[],
     SimulationContext,
     StateOverride?,
-    number?
+    number?,
   ];
 
   [EvmRpcMethod.eth_call]: [
