@@ -196,10 +196,12 @@ export class EvmRpcClient {
       body,
     });
 
+    const text = await res.text();
+
     if (!res.ok) throw new RpcHttpError(res.status);
 
     try {
-      const data: JsonRpcResponse<R> = await res.json();
+      const data: JsonRpcResponse<R> = JSON.parse(text);
       return this.parseAndValidateResponse(data);
     } catch (err) {
       if (
@@ -241,7 +243,7 @@ export class EvmRpcClient {
       if ((err as Error).name === "AbortError") {
         throw new RpcTimeoutError(err);
       }
-      throw new RpcHttpError(0);
+      throw new RpcHttpError(0)
     } finally {
       clearTimeout(timeout);
     }

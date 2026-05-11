@@ -1,4 +1,8 @@
-import { Account, hashMessage } from "viem";
+import {
+  Account,
+  keccak256,
+  stringToHex,
+} from "viem";
 
 export type HeaderFactory = (
   body: string,
@@ -8,8 +12,12 @@ export function createFlashbotsHeaderFactory(
   account: Account,
 ): HeaderFactory {
   return async (body: string) => {
+    const bodyHash = keccak256(
+      stringToHex(body),
+    );
+
     const signature = await account.signMessage({
-      message: { raw: hashMessage(body) },
+      message: bodyHash,
     });
 
     return {
